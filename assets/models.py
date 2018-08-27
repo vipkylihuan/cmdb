@@ -175,3 +175,41 @@ class Software(models.Model):
         verbose_name = '软件/系统'
         verbose_name_plural = "软件/系统"
 
+class IDC(models.Model):
+    '''
+    机房，
+    '''
+    name = models.CharField(max_length=64,unique=True,verbose_name='机房名称')
+    memo = models.CharField(max_length=128,blank=True,null=True,verbose_name='备注')
+
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name = '机房'
+        verbose_name_plural = '机房'
+
+class Manufacturer(models.Model):
+    '''厂商'''
+    name = models.CharField('厂商名称',max_length=64,unique=True)
+    telephone = models.CharField('支持电话',max_length=30,blank=True,null=True)
+    memo = models.CharField('备注',max_length=128,blank=True,null=True)
+
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name = '厂商'
+        verbose_name_plural = '厂商'
+
+class BusinessUnit(models.Model):
+    '''业务线'''
+    parent_unit = models.ForeignKey('self',blank=True,null=True,related_name='parent_level')
+    name = models.CharField('业务线',max_length=64,unique=True)
+    memo = models.CharField('备注',max_length=128,blank=True,null=True)
+
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name = '业务线'
+        verbose_name_plural = '业务线'
+
+class
