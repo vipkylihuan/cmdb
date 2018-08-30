@@ -212,4 +212,40 @@ class BusinessUnit(models.Model):
         verbose_name = '业务线'
         verbose_name_plural = '业务线'
 
-class
+class Contract(models.Model):
+    '''合同'''
+    sn = models.CharField('合同号',max_length=128,unique=True)
+    name = models.CharField('合同名称',max_length=64)
+    memo = models.TextField('备注',blank=True,null=True)
+    price = models.IntegerField('合同金额')
+    detail = models.TextField('合同详细',blank=True,null=True)
+    start_day = models.DateField('开始日期',blank=True,null=True)
+    end_day = models.DateField('失效日期',blank=True,null=True)
+    license_num = models.IntegerField('license数量',blank=True,null=True)
+    c_day = models.DateField('创建日期',auto_now_add=True)
+    m_day = models.DateField('修改日期',auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '合同'
+        verbose_name_plural = '合同'
+
+class Tag(models.Model):
+    '''标签'''
+    name = models.CharField('标签名',max_length=32,unique=True)
+    c_day = models.DateField('创建日期',auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name = '标签'
+        verbose_name_plural = '标签'
+
+class CPU(models.Model):
+    '''CPU组件'''
+
+    asset = models.OneToOneField('Asset')
+    cpu_model = models.CharField('CPU型号',max_length=128,blank=True,null=True)
+    cpu_count = models.PositiveSmallIntegerField('物理CPU个数',default=1)
